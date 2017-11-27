@@ -22,7 +22,6 @@ public class User {
 
     @Column(name = "password")
     @NotEmpty(message = "*Please provide your password")
-    @Transient
     private String password;
 
     @Column(name = "name")

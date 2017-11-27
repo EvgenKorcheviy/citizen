@@ -32,9 +32,6 @@ import java.util.List;
 @ComponentScan(basePackages = "com.space.traveler")
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
-    /*@Value("${upload.max_upload_size}")
-    private Long maxUploadSize;*/
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -45,14 +42,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return RootConfig.propertySourcesPlaceholderConfigurer();
     }
-
-    /*@Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/ui/html/");
-        viewResolver.setSuffix(".html");
-        return viewResolver;
-    }*/
 
     @Bean
     public ObjectMapper objectMapper() {

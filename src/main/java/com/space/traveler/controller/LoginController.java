@@ -27,8 +27,6 @@ public class LoginController {
         return modelAndView;
     }
 
-
-
     @RequestMapping(value="/registration", method = RequestMethod.GET)
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
@@ -39,7 +37,6 @@ public class LoginController {
     }
 
     @PostMapping(value = "/registration")
-    //@RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findByEmail(user.getEmail());
@@ -59,53 +56,6 @@ public class LoginController {
         }
         return modelAndView;
     }
-
-    /**
-     *
-     * @param user
-     {
-        email: "korcheviy.evgen@gmail.com",
-        password: "Abcd1234",
-        name: "Evgen",
-        lastName: "Korcheviy"
-      }
-     * @return
-     *//*
-
-    @PostMapping(value = "/registration")
-    @ApiOperation(value="register new user")
-    public ResponseEntity createNewUser(@RequestBody User user) {
-        User userExists = userService.findByEmail(user.getEmail());
-        if (userExists != null) {
-            return ResponseEntity.badRequest().body("User already exist");
-        } else {
-            userService.saveUser(user);
-        }
-        return ResponseEntity.ok(userService.findByEmail(user.getEmail()));
-    }*/
-
-    /*@RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> add(@PathVariable String userId, @RequestBody Bookmark input) {
-        this.validateUser(userId);
-
-        return this.accountRepository
-                .findByUsername(userId)
-                .map(account -> {
-                    Bookmark result = bookmarkRepository.save(new Bookmark(account,
-                            input.uri, input.description));
-
-                    URI location = ServletUriComponentsBuilder
-                            .fromCurrentRequest().path("/{id}")
-                            .buildAndExpand(result.getId()).toUri();
-
-                    return ResponseEntity.created(location).build();
-                })
-                .orElse(ResponseEntity.noContent().build());
-
-    }*/
-
-
-
 
     @RequestMapping(value="/admin/home", method = RequestMethod.GET)
     public ModelAndView home(){

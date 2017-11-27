@@ -29,21 +29,9 @@ public class RootConfig {
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
         configurer.setLocations(
-                //new ClassPathResource("default.properties"),
                 new ClassPathResource(environment + ".properties")
-                //new FileSystemResource("/etc/journal/app.properties")
         );
         configurer.setIgnoreResourceNotFound(true);
         return configurer;
     }
-
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
-    }
-
 }

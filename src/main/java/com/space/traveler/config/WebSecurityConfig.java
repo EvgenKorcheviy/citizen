@@ -59,12 +59,55 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/").and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
+
+    /*@Value("${security.passkey.secret}")
+    private CharSequence securityKey;
+
+    @Value("${security.passkey.strength}")
+    private int strength;
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(strength, new SecureRandom(Hex.decode(securityKey)));
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(Object passwordEncoder, org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        //daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        return daoAuthenticationProvider;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/ui/**", "/login", "/logout").permitAll()
+                //.antMatchers("/children/**").hasAnyAuthority(ADMIN.toString(), TEACHER.toString())
+                //.antMatchers("/parents/**", "/classes/**", "/subjects", "/teachers", "/lessons", "/journal").hasAuthority(ADMIN.toString())
+                //.antMatchers("/journal", "/teacherJournal").hasAuthority(TEACHER.toString())
+                //.antMatchers("/parent/marks").hasAuthority(PARENT.toString())
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .successHandler(authenticationSuccessHandler)
+                .and()
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+    }*/
 
 }

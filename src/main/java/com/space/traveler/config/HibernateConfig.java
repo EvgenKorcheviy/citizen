@@ -103,13 +103,4 @@ public class HibernateConfig {
         return transactionManager;
     }
 
-    /*@Bean
-    public SpringLiquibase liquibase() {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource());
-        liquibase.setChangeLog("classpath:liquibase/master.xml");
-        liquibase.setContexts("development, production");
-        return liquibase;
-    }*/
-
 }

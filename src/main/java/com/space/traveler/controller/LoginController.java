@@ -3,21 +3,15 @@ package com.space.traveler.controller;
 import com.space.traveler.model.User;
 import com.space.traveler.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 @Controller
 @Api(value = "registration/login")
@@ -44,7 +38,7 @@ public class LoginController {
         return modelAndView;
     }
 
-    /*@PostMapping(value = "/registration")
+    @PostMapping(value = "/registration")
     //@RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
@@ -64,7 +58,7 @@ public class LoginController {
 
         }
         return modelAndView;
-    }*/
+    }
 
     /**
      *
@@ -76,7 +70,7 @@ public class LoginController {
         lastName: "Korcheviy"
       }
      * @return
-     */
+     *//*
 
     @PostMapping(value = "/registration")
     @ApiOperation(value="register new user")
@@ -88,7 +82,7 @@ public class LoginController {
             userService.saveUser(user);
         }
         return ResponseEntity.ok(userService.findByEmail(user.getEmail()));
-    }
+    }*/
 
     /*@RequestMapping(method = RequestMethod.POST)
     ResponseEntity<?> add(@PathVariable String userId, @RequestBody Bookmark input) {

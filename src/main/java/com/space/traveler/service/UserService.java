@@ -1,11 +1,10 @@
 package com.space.traveler.service;
 
-import com.space.traveler.entity.SecUser;
+import com.space.traveler.model.User;
 
 public interface UserService {
 
-    void save(SecUser user);
-
-    SecUser findByUsername(String username);
+    User findByEmail(String email);
+    void saveUser(User user);
 
 }

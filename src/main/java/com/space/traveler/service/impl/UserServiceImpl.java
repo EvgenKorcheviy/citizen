@@ -1,36 +1,43 @@
 package com.space.traveler.service.impl;
 
-import com.space.traveler.dao.SecRoleDao;
-import com.space.traveler.dao.SecUserDao;
-import com.space.traveler.entity.SecUser;
+import com.space.traveler.model.Role;
+import com.space.traveler.model.User;
+import com.space.traveler.repository.RoleRepository;
+import com.space.traveler.repository.UserRepository;
 import com.space.traveler.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private SecUserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
-    private SecRoleDao roleDao;
+    private RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(SecUser user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleDao.findAll()));
-        userDao.create(user);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
+
     @Override
-    public SecUser findByUsername(String username) {
-        return userDao.findByUsername(username);
+    public void saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        userRepository.save(user);
     }
+
+
 }

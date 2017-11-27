@@ -12,6 +12,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -30,6 +31,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     private Long maxUploadSize;*/
 
     @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
+    }
+
+    @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return RootConfig.propertySourcesPlaceholderConfigurer();
     }
@@ -38,7 +45,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/ui/html/");
-        viewResolver.setSuffix(".jsp");
+        viewResolver.setSuffix(".html");
         return viewResolver;
     }
 
@@ -53,6 +60,15 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/ui/**")
                 .addResourceLocations("/ui/");
+
+        /**
+         * SWAGGER
+         */
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override
@@ -60,17 +76,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         converters.add(new MappingJackson2HttpMessageConverter(objectMapper()));
     }
 
-    @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver commonsMultipartResolver() {
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        //onsMultipartResolver.setMaxUploadSize(maxUploadSize);
-        commonsMultipartResolver.setDefaultEncoding("UTF-8");
-        return commonsMultipartResolver;
-    }
 
     @Bean
     public ConversionService conversionService() {
         return new DefaultConversionService();
     }
+
+
 
 }
